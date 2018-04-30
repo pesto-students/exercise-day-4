@@ -40,9 +40,54 @@ function requestValidator(obj) {
   return obj;
 }
 
+/*
+Create a function that caches another function
+Example:
+
+function expensiveOperation() {
+  console.log('expensiveOperation function is called!');
+  return 22;
+}
+const memoized = memoize(expensiveOperation); <- memoize function
+console.log(memoized());
+console.log(memoized());
+
+the console should show:
+expensiveOperation function is called!
+22
+22
+
+See 'memoize' tests for further info of the requirement
+*/
+
+function memoize(f) {
+  const cache = {};
+  return (...args) => {
+    const argsString = JSON.stringify(args);
+    cache[argsString] = cache[argsString] || f(...args);
+    return cache[argsString];
+  };
+}
+
+/*
+Here's the basic usage of the function that you'll be creating:
+
+function add(a, b) {
+  return a + b;
+}
+
+var curriedAdd = curry(add); <- this is the curry function
+console.log(  curriedAdd(1)(2)  ); // 3
+See 'curry' tests for further info of the requirement
+*/
+function curry(fn) {
+
+}
 
 module.exports = {
   squareNumbersArray,
   SavingsAccount,
   requestValidator,
+  memoize,
+  curry,
 };
