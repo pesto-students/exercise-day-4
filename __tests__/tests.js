@@ -32,7 +32,8 @@ describe('truthCheck', () => {
     }, {
       user: 'Po',
       sex: 'female',
-    }], sex)).toBe(true);
+    }], 'sex')).toBe(true);
+
     expect(truthCheck([{
       user: 'Tinky-Winky',
       sex: 'male',
@@ -44,7 +45,8 @@ describe('truthCheck', () => {
     }, {
       user: 'Po',
       sex: 'female',
-    }], sex)).toBe(false);
+    }], 'sex')).toBe(false);
+
     expect(truthCheck([{
       user: 'Tinky-Winky',
       sex: 'male',
@@ -62,6 +64,7 @@ describe('truthCheck', () => {
       sex: 'female',
       age: 4,
     }], 'age')).toBe(false);
+
     expect(truthCheck([{
       name: 'Pete',
       onBoat: true,
@@ -72,6 +75,7 @@ describe('truthCheck', () => {
       name: 'FastFoward',
       onBoat: null,
     }], 'onBoat')).toBe(false);
+
     expect(truthCheck([{
       name: 'Pete',
       onBoat: true,
@@ -83,9 +87,11 @@ describe('truthCheck', () => {
       name: 'FastFoward',
       onBoat: true,
     }], 'onBoat')).toBe(true);
+
     expect(truthCheck([{
       single: 'yes',
     }], 'single')).toBe(true);
+
     expect(truthCheck([{
       single: '',
     }, {
@@ -122,7 +128,7 @@ describe('dropElements', () => {
     })).toEqual([3, 4]);
     expect(dropElements([0, 1, 0, 1], (n) => {
       return n === 1;
-    })).toEqual([1, 0, 1]);
+    })).toEqual([1, 1]);
     expect(dropElements([1, 2, 3, 4], (n) => {
       return n > 5;
     })).toEqual([]);
@@ -131,7 +137,7 @@ describe('dropElements', () => {
     })).toEqual([7, 4]);
     expect(dropElements([1, 2, 3, 9, 2], (n) => {
       return n > 2;
-    })).toEqual([3, 9, 2]);
+    })).toEqual([3, 9]);
   });
 });
 
@@ -147,7 +153,7 @@ describe('updateInventory', () => {
       [3, 'Half-Eaten Apple'],
       [67, 'Bowling Ball'],
       [7, 'Toothpaste'],
-    ])).toBe(6);
+    ]).length).toBe(6);
   });
   test('should return correct output', () => {
     expect(updateInventory([

@@ -143,8 +143,6 @@ const defaults = (obj, defaultProps) => {
 
 // (*)
 // Follow the instructions and fill in the blank sections.
-// There are no tests for this file.
-// To verify your code works you can run this file using `node this.js` while in the `/src` folder
 
 function User(username, password) {
   // set a username and password property on the user object that is created
