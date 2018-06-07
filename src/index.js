@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-  return arr.slice(howMany);
+  return arr.splice(howMany);
 }
 
 /** (*)
@@ -15,7 +15,11 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const response = [];
+  while (arr.length > 0) {
+    response.push(arr.splice(0, size));
+  }
+  return response;
 }
 
 /** (*)
@@ -36,7 +40,7 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  return arr.filter(func);
 }
 
 /** (*)
@@ -84,7 +88,7 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  return collection.every(obj => !!obj[pre] === true);
 }
 
 /** (*)
