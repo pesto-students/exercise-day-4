@@ -28,7 +28,25 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
+  //  arr.map((item) => {
+  //   const truthTestResult = func(item);
+  //   if (truthTestResult) {
+  //     return truthTestResult;
+  //   }
+  // });
 
+  /*
+  let truthTestResult;
+  for (let i = 0; i < arr.length; i += 1) {
+    const element = arr[i];
+    if (func(element)) {
+      truthTestResult = element;
+      return truthTestResult;
+    }
+  }
+  */
+
+  return arr.filter(func)[0];
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
