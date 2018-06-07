@@ -132,11 +132,10 @@ function orbitalPeriod(arr) {
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 // (*)
-const keys = (obj) => {
-  // Retrieve all the names of the object's properties.
-  // Return the keys as strings in an array.
-  // Based on http://underscorejs.org/#keys
-};
+// Retrieve all the names of the object's properties.
+// Return the keys as strings in an array.
+// Based on http://underscorejs.org/#keys
+const keys = obj => Object.keys(obj);
 
 // (*)
 const values = (obj) => {
