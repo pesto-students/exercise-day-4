@@ -6,7 +6,14 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  const n = arr.length - howMany;
+  let i;
+  let j;
+  const array = new Array(); // eslint-disable-line no-array-constructor
+  for (i = howMany, j = 0; i < arr.length; i += 1, j += 1) {
+    array[j] = arr[i];
+  }
+  return array;
 }
 
 /** (*)
@@ -23,7 +30,13 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  let i;
+  for (i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      return arr[i];
+    }
+  }
+  return undefined;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +49,16 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  const array = new Array(); // eslint-disable-line no-array-constructor
+  let i;
+  let j;
+  for (i = 0, j = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      array[j] = arr[i];
+      j += 1;
+    }
+  }
+  return array;
 }
 
 /** (*)
@@ -46,6 +68,7 @@ function dropElements(arr, func) {
  * The returned inventory array should be in alphabetical order by item.
  */
 function updateInventory(arr1, arr2) {
+
 
 }
 
