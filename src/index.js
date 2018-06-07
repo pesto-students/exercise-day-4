@@ -6,7 +6,8 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  arr.splice(0, howMany);
+  return arr;
 }
 
 /** (*)
@@ -15,7 +16,11 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const responseArr = [];
+  while (arr.length > 0) {
+    responseArr.push(arr.splice(0, size));
+  }
+  return responseArr;
 }
 
 /** (*)
@@ -23,7 +28,25 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
+  //  arr.map((item) => {
+  //   const truthTestResult = func(item);
+  //   if (truthTestResult) {
+  //     return truthTestResult;
+  //   }
+  // });
 
+  /*
+  let truthTestResult;
+  for (let i = 0; i < arr.length; i += 1) {
+    const element = arr[i];
+    if (func(element)) {
+      truthTestResult = element;
+      return truthTestResult;
+    }
+  }
+  */
+
+  return arr.filter(func)[0];
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +59,15 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  let truthTestResult;
+  for (let i = 0; i < arr.length; i += 1) {
+    const element = arr[i];
+    if (func(element)) {
+      arr.splice(0, i);
+      return arr;
+    }
+  }
+  return arr;
 }
 
 /** (*)
@@ -101,18 +132,16 @@ function orbitalPeriod(arr) {
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 // (*)
-const keys = (obj) => {
-  // Retrieve all the names of the object's properties.
-  // Return the keys as strings in an array.
-  // Based on http://underscorejs.org/#keys
-};
+// Retrieve all the names of the object's properties.
+// Return the keys as strings in an array.
+// Based on http://underscorejs.org/#keys
+const keys = obj => Object.keys(obj);
 
 // (*)
-const values = (obj) => {
-  // Return all of the values of the object's own properties.
-  // Ignore functions
-  // http://underscorejs.org/#values
-};
+// Return all of the values of the object's own properties.
+// Ignore functions
+// http://underscorejs.org/#values
+const values = obj => Object.values(obj);
 
 // (*)
 const mapObject = (obj, cb) => {
@@ -146,6 +175,8 @@ const defaults = (obj, defaultProps) => {
 
 function User(username, password) {
   // set a username and password property on the user object that is created
+  this.username = username;
+  this.password = password;
 }
 
 // create a method on User called `checkPassword`
@@ -153,7 +184,7 @@ function User(username, password) {
 // return `true` if they match, otherwise return `false`
 
 User.prototype.checkPassword = function checkPassword(password) {
-
+  return password === this.password;
 };
 
 /* eslint-enable no-unused-vars */
