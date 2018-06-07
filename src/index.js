@@ -5,8 +5,12 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  try {
+    const squares = arr.map(number => number * number);
+    return squares;
+  } catch (error) {
+    throw new Error('My custom error');
+  }
 }
 
 /** 2
@@ -18,7 +22,37 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
-
+  constructor(accountNumber, email, firstName, lastName) {
+    this.accountNumber = accountNumber;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.products = [];
+  }
+  get accountNumber() {
+    return this.accountNumber.toUpperCase();
+  }
+  set accountNumber(accountNumber) {
+    this.accountNumber = accountNumber;
+  }
+  get email() {
+    return this.email.toUpperCase();
+  }
+  set email(email) {
+    this.accountNumber = email;
+  }
+  get firstName() {
+    return this.firstName.toUpperCase();
+  }
+  set firstName(firstName) {
+    this.firstName = firstName;
+  }
+  get lastName() {
+    return this.lastName.toUpperCase();
+  }
+  set lastName(lastName) {
+    this.lastName = lastName;
+  }
 }
 
 /** 3 (*)
@@ -82,7 +116,9 @@ function curry() {}
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  return dataset.bankBalances.filter(bankAccount => bankAccount.amount > 100000);
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.
