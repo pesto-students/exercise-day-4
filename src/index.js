@@ -59,7 +59,15 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  let truthTestResult;
+  for (let i = 0; i < arr.length; i += 1) {
+    const element = arr[i];
+    if (func(element)) {
+      arr.splice(0, i);
+      return arr;
+    }
+  }
+  return arr;
 }
 
 /** (*)
@@ -169,6 +177,8 @@ const defaults = (obj, defaultProps) => {
 
 function User(username, password) {
   // set a username and password property on the user object that is created
+  this.username = username;
+  this.password = password;
 }
 
 // create a method on User called `checkPassword`
@@ -176,7 +186,7 @@ function User(username, password) {
 // return `true` if they match, otherwise return `false`
 
 User.prototype.checkPassword = function checkPassword(password) {
-
+  return password === this.password;
 };
 
 /* eslint-enable no-unused-vars */
