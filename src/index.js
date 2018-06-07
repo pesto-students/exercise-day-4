@@ -6,7 +6,8 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  arr.splice(0, howMany);
+  return arr;
 }
 
 /** (*)
@@ -15,7 +16,11 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const responseArr = [];
+  while (arr.length > 0) {
+    responseArr.push(arr.splice(0, size));
+  }
+  return responseArr;
 }
 
 /** (*)
