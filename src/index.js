@@ -1,12 +1,18 @@
-/* eslint-disable no-unused-vars */
-
+/* eslint-disable no-unused-vars, no-var */
 /** (*)
  * Return the remaining elements of an array after chopping
  * off n elements from the head.
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  var n = 0;
+  const newArr = new Array(); // eslint-disable-line no-array-constructor
+  var i = 0;
+  var j = 0;
+  for (i = howMany, j = 0; i < arr.length; i += 1, j += 1) {
+    newArr[j] = arr[i];
+  }
+  return newArr;
 }
 
 /** (*)
@@ -15,7 +21,13 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  var arr1 = []; // eslint-disable-line no-array-constructor
+  var i = arr.length;
+  var l = 0;
+  while (l < arr.length) {
+    arr1.push(arr.slice(l, l += size)); // eslint-disable-line
+  }
+  return arr1;
 }
 
 /** (*)
