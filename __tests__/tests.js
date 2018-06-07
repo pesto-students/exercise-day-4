@@ -141,7 +141,7 @@ describe('dropElements', () => {
   });
 });
 
-describe('updateInventory', () => {
+describe.only('updateInventory', () => {
   test('should return an array of particular length', () => {
     expect(updateInventory([
       [21, 'Bowling Ball'],

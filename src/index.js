@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.splice(howMany);
 }
 
 /** (*)
@@ -15,7 +15,8 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const newarr = arr.map();
+  return newarr;
 }
 
 /** (*)
@@ -23,7 +24,12 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i]) === true) {
+      return arr[i];
+    }
+  }
+  return undefined;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +42,13 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i]) !== true) {
+      arr.splice(i, 1);
+      i -= 1;
+    }
+  }
+  return arr;
 }
 
 /** (*)
@@ -46,7 +58,14 @@ function dropElements(arr, func) {
  * The returned inventory array should be in alphabetical order by item.
  */
 function updateInventory(arr1, arr2) {
-
+  for (let i = 0; i < arr2.length; i += 1) {
+    for (let j = 0; j < arr1.length; j += 1) {
+      if (arr2[i][1] !== arr1[j][1]) {
+        arr1.splice(i, 0, arr2[i]);
+      }
+    }
+  }
+  return arr1.sort();
 }
 
 // Example inventory lists
