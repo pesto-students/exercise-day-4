@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.slice(howMany);
 }
 
 /** (*)
@@ -74,8 +74,8 @@ function updateInventory(arr1, arr2) {
  * both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
  */
 function smallestCommons(arr) {
-
 }
+
 
 /** (*)
  * Check if the predicate (second argument) is truthy on all
@@ -97,6 +97,19 @@ function truthCheck(collection, pre) {
 function orbitalPeriod(arr) {
   const GM = 398600.4418;
   const earthRadius = 6367.4447;
+  const result = [];
+  arr.forEach((element) => {
+    const effectiveRadius = earthRadius + element.avgAlt;
+    const timePeriod = Math.round(Math.sqrt((4 * (Math.PI ** 2) * (effectiveRadius ** 3)) / (GM)));
+    const object = {
+      name: element.name,
+      orbitalPeriod: timePeriod,
+    };
+    result.push(object);
+  });
+
+
+  return result;
 }
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
