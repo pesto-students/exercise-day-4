@@ -1,12 +1,16 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable  */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  try {
+    const squares = arr.map(number => number * number);
+    return squares;
+  } catch (e) {
+    throw ('My custom error');
+  }
 }
 
 /** 2
@@ -18,8 +22,17 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
+  constructor(_accountNumber,_email,_firstName,_lastName,products){
+    this._accountNumber =_accountNumber;
+      this._email =_email;
+      this._firstName= _firstName;
+      this._lastName= _lastName;
+      this.products= [];
+  }
+   
 
 }
+
 
 /** 3 (*)
  * Write a JS function that validates an HTTP request object.
@@ -82,7 +95,14 @@ function curry() {}
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  //var arr= [dataset.bankBalances.amount]
+  return arr = Object.values(dataset.bankBalances).filter(amt  => amt.amount.length>=9);
+
+
+
+  
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.

@@ -172,7 +172,7 @@ describe('memoize', () => {
   });
 });
 
-describe('hundredThousandairs', () => {
+describe.only('hundredThousandairs', () => {
   it('should return an array with accounts from bankBalances that are greater than 100000', () => {
     expect(hundredThousandairs().length).toBe(93);
     expect(hundredThousandairs().every(account => (account.amount > 100000))).toBe(true);
