@@ -1,6 +1,6 @@
 # Questions
 
-1) What will be the output of this code ? 
+1) What will be the output of this code ?
     ```
     var x = { foo : 1};
     var output = (function() {
@@ -47,3 +47,11 @@
       console.log(objA === objB);
     }());
     ```
+
+    Answers:
+    1) undefined
+    2) xyz
+    3) console.log(Object.keys(counterArray).length);
+    4) By using functions: Object.preventExtensions(), Object.seal(), Object.freeze()
+    5) false
+       false
