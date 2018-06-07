@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
-
+/* eslint no-underscore-dangle: 0 */
 const dataset = require('./dataset.json');
 
 // 1 (*)
@@ -22,38 +22,38 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
-  // constructor(accountNumber, email, firstName, lastName) {
-  //   this._accountNumber = accountNumber;
-  //   this._email = email;
-  //   this._firstName = firstName;
-  //   this._lastName = lastName;
-  //   this.products = [];
-  // }
+  constructor(accountNumber, email, firstName, lastName) {
+    this._accountNumber = accountNumber;
+    this._email = email;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this.products = [];
+  }
 
-  // set _accountNumber(newAccountNumber) {
-  //   try {
-  //     if (newAccountNumber.length !== 6) {
-  //       throw new Error('error');
-  //     } else {
-  //       this._accountNumber = newAccountNumber;
-  //     }
-  //   } catch (error) {
-  //     throw new Error('Account Number must be a 6-digit number');
-  //   }
-  // }
+  set _accountNumber(newAccountNumber) {
+    try {
+      if (newAccountNumber.length !== 6) {
+        throw new Error('error');
+      } else {
+        this._accountNumber = newAccountNumber;
+      }
+    } catch (error) {
+      throw new Error('Account Number must be a 6-digit number');
+    }
+  }
 
-  // set _email(email) {
-  //   try {
-  //
-  //     if (!re.test(String(email).toLowerCase())) {
-  //       throw new Error('error');
-  //     } else {
-  //       this._accountNumber = email;
-  //     }
-  //   } catch (error) {
-  //     throw new Error('Invalid e-mail');
-  //   }
-  // }
+  set _email(email) {
+    try {
+      const re = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+      if (!re.test(String(email).toLowerCase())) {
+        throw new Error('error');
+      } else {
+        this._accountNumber = email;
+      }
+    } catch (error) {
+      throw new Error('Invalid e-mail');
+    }
+  }
 }
 
 /** 3 (*)
