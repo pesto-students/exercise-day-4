@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.slice(howMany);
 }
 
 /** (*)
@@ -17,6 +17,7 @@ function slasher(arr, howMany) {
 function chunkArrayInGroups(arr, size) {
 
 }
+
 
 /** (*)
  * Create a function that looks through an array (first argument) and
@@ -105,6 +106,8 @@ const keys = (obj) => {
   // Retrieve all the names of the object's properties.
   // Return the keys as strings in an array.
   // Based on http://underscorejs.org/#keys
+
+
 };
 
 // (*)
@@ -112,6 +115,7 @@ const values = (obj) => {
   // Return all of the values of the object's own properties.
   // Ignore functions
   // http://underscorejs.org/#values
+
 };
 
 // (*)
