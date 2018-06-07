@@ -259,7 +259,7 @@ describe('chunkArrayInGroups', () => {
   });
 });
 
-describe.only('orbitalPeriod', () => {
+describe('orbitalPeriod', () => {
   test('should return correct output', () => {
     expect(orbitalPeriod([{
       name: 'sputnik',
