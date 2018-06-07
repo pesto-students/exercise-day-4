@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-
+/* eslint-disable no-var */
 /** (*)
  * Return the remaining elements of an array after chopping
  * off n elements from the head.
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.slice(howMany);
 }
 
 /** (*)
@@ -15,7 +15,9 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  var arr1;
+  arr1.push(arr.splice(0));
+  arr1 = arr.split(size);
 }
 
 /** (*)
@@ -23,7 +25,13 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  var i;
+  for (i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      return arr[i];
+    }
+  }
+  return undefined;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +44,14 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  var arr1 = '';
+  var i;
+  for (i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      arr1 = arr.shift(i);
+    }
+  }
+  return arr1;
 }
 
 /** (*)
@@ -75,6 +90,7 @@ function updateInventory(arr1, arr2) {
  */
 function smallestCommons(arr) {
 
+
 }
 
 /** (*)
@@ -84,6 +100,7 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
+
 
 }
 
