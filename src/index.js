@@ -138,11 +138,10 @@ function orbitalPeriod(arr) {
 const keys = obj => Object.keys(obj);
 
 // (*)
-const values = (obj) => {
-  // Return all of the values of the object's own properties.
-  // Ignore functions
-  // http://underscorejs.org/#values
-};
+// Return all of the values of the object's own properties.
+// Ignore functions
+// http://underscorejs.org/#values
+const values = obj => Object.values(obj);
 
 // (*)
 const mapObject = (obj, cb) => {
