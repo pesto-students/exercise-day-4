@@ -19,7 +19,7 @@ describe('squareNumbersArray', () => {
   });
 });
 
-describe('SavingsAccount', () => {
+describe.only('SavingsAccount', () => {
   test('SavingsAccount constructs the proper object', () => {
     const myAccount = {
       _accountNumber: '123456',

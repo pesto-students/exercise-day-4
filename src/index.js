@@ -5,8 +5,12 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  try {
+    const squares = arr.map(number => number * number);
+    return squares;
+  } catch (error) {
+    throw new Error('My custom error');
+  }
 }
 
 /** 2
@@ -18,7 +22,38 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
+  // constructor(accountNumber, email, firstName, lastName) {
+  //   this._accountNumber = accountNumber;
+  //   this._email = email;
+  //   this._firstName = firstName;
+  //   this._lastName = lastName;
+  //   this.products = [];
+  // }
 
+  // set _accountNumber(newAccountNumber) {
+  //   try {
+  //     if (newAccountNumber.length !== 6) {
+  //       throw new Error('error');
+  //     } else {
+  //       this._accountNumber = newAccountNumber;
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Account Number must be a 6-digit number');
+  //   }
+  // }
+
+  // set _email(email) {
+  //   try {
+  //
+  //     if (!re.test(String(email).toLowerCase())) {
+  //       throw new Error('error');
+  //     } else {
+  //       this._accountNumber = email;
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Invalid e-mail');
+  //   }
+  // }
 }
 
 /** 3 (*)
