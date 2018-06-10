@@ -27,7 +27,7 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  return arr.filter(func)[0];
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -163,6 +163,11 @@ const defaults = (obj, defaultProps) => {
 
 function User(username, password) {
   // set a username and password property on the user object that is created
+  const obj = {
+    username,
+    password,
+  };
+  return obj;
 }
 
 // create a method on User called `checkPassword`
@@ -170,7 +175,7 @@ function User(username, password) {
 // return `true` if they match, otherwise return `false`
 
 User.prototype.checkPassword = function checkPassword(password) {
-
+  return password === User.password;
 };
 
 /* eslint-enable no-unused-vars */
