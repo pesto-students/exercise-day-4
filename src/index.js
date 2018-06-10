@@ -1,12 +1,16 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable  */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  try {
+    const squares = arr.map(number => number * number);
+    return squares;
+  } catch (e) {
+    throw new error('My custom error');
+  }
 }
 
 /** 2
@@ -18,8 +22,17 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
+  constructor(_accountNumber,_email,_firstName,_lastName,products){
+    this._accountNumber =_accountNumber;
+      this._email =_email;
+      this._firstName= _firstName;
+      this._lastName= _lastName;
+      this.products= [];
+  }
+   
 
 }
+
 
 /** 3 (*)
  * Write a JS function that validates an HTTP request object.
@@ -82,7 +95,10 @@ function curry() {}
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  //var arr= [dataset.bankBalances.amount]
+  return dataset.bankBalances.filter(amt  => amt.amount.length>=9); 
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.
@@ -100,11 +116,23 @@ function hundredThousandairs() {}
       "rounded": 134758
     }
 */
-function datasetWithRoundedDollar() {}
+function datasetWithRoundedDollar() {
+  let data = dataset.bankBalances.map ( element =>  {
+    let spreadObj = {...element};
+    spreadObj['rounded'] = Math.round(Number(spreadObj.amount));
+    return spreadObj;
+  } );
+  
+  return data;
+}
 
 // 8 (*)
 // Return the sum of all values held at `amount` for each bank object
-function sumOfBankBalances() {}
+function sumOfBankBalances() {
+  
+  const totalAmount = dataset.bankBalances.map( amt => Number(amt.amount));
+  return Number(parseFloat(totalAmount.reduce((total, next ) => total + next )).toFixed(2));
+}
 
 /* 9 (*)
   from each of the following states:
@@ -117,7 +145,16 @@ function sumOfBankBalances() {}
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-function sumOfInterests() {}
+function sumOfInterests() {
+  const filteredBalances =  dataset.bankBalances.filter( a => (a.state ==='WI' || 
+  a.state ==='OH' ||a.state ==='IL'||
+  a.state ==='WY' ||
+  a.state ==='GA' || a.state ==='DE'));
+  //return fileteredBalances;
+  const totalAmount = filteredBalances.map( amt => Number(amt.amount*0.189));
+  return Number(parseFloat(totalAmount.reduce((total, next ) => total + next )).toFixed(2));
+
+}
 
 /* 10 (*)
   Aggregate the sum of each state into one hash table
