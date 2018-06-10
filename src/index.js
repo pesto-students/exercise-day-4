@@ -9,7 +9,7 @@ function squareNumbersArray(arr) {
     const squares = arr.map(number => number * number);
     return squares;
   } catch (e) {
-    throw ('My custom error');
+    throw new error('My custom error');
   }
 }
 
@@ -97,11 +97,7 @@ function curry() {}
 */
 function hundredThousandairs() {
   //var arr= [dataset.bankBalances.amount]
-  return arr = Object.values(dataset.bankBalances).filter(amt  => amt.amount.length>=9);
-
-
-
-  
+  return dataset.bankBalances.filter(amt  => amt.amount.length>=9); 
 }
 
 /* 7 (*)
@@ -120,11 +116,23 @@ function hundredThousandairs() {
       "rounded": 134758
     }
 */
-function datasetWithRoundedDollar() {}
+function datasetWithRoundedDollar() {
+  let data = dataset.bankBalances.map ( element =>  {
+    let spreadObj = {...element};
+    spreadObj['rounded'] = Math.round(Number(spreadObj.amount));
+    return spreadObj;
+  } );
+  
+  return data;
+}
 
 // 8 (*)
 // Return the sum of all values held at `amount` for each bank object
-function sumOfBankBalances() {}
+function sumOfBankBalances() {
+  
+  const totalAmount = dataset.bankBalances.map( amt => Number(amt.amount));
+  return Number(parseFloat(totalAmount.reduce((total, next ) => total + next )).toFixed(2));
+}
 
 /* 9 (*)
   from each of the following states:
@@ -137,7 +145,16 @@ function sumOfBankBalances() {}
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-function sumOfInterests() {}
+function sumOfInterests() {
+  const filteredBalances =  dataset.bankBalances.filter( a => (a.state ==='WI' || 
+  a.state ==='OH' ||a.state ==='IL'||
+  a.state ==='WY' ||
+  a.state ==='GA' || a.state ==='DE'));
+  //return fileteredBalances;
+  const totalAmount = filteredBalances.map( amt => Number(amt.amount*0.189));
+  return Number(parseFloat(totalAmount.reduce((total, next ) => total + next )).toFixed(2));
+
+}
 
 /* 10 (*)
   Aggregate the sum of each state into one hash table
