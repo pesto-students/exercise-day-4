@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.splice(howMany);
 }
 
 /** (*)
@@ -15,7 +15,11 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const response = [];
+  while (arr.length > 0) {
+    response.push(arr.splice(0, size));
+  }
+  return response;
 }
 
 /** (*)
@@ -23,7 +27,7 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  return arr.filter(func)[0];
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +40,7 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  return arr.filter(func);
 }
 
 /** (*)
@@ -74,8 +78,8 @@ function updateInventory(arr1, arr2) {
  * both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
  */
 function smallestCommons(arr) {
-
 }
+
 
 /** (*)
  * Check if the predicate (second argument) is truthy on all
@@ -84,7 +88,7 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  return collection.every(obj => !!obj[pre] === true);
 }
 
 /** (*)
@@ -97,6 +101,19 @@ function truthCheck(collection, pre) {
 function orbitalPeriod(arr) {
   const GM = 398600.4418;
   const earthRadius = 6367.4447;
+  const result = [];
+  arr.forEach((element) => {
+    const effectiveRadius = earthRadius + element.avgAlt;
+    const timePeriod = Math.round(Math.sqrt((4 * (Math.PI ** 2) * (effectiveRadius ** 3)) / (GM)));
+    const object = {
+      name: element.name,
+      orbitalPeriod: timePeriod,
+    };
+    result.push(object);
+  });
+
+
+  return result;
 }
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
@@ -146,6 +163,11 @@ const defaults = (obj, defaultProps) => {
 
 function User(username, password) {
   // set a username and password property on the user object that is created
+  const obj = {
+    username,
+    password,
+  };
+  return obj;
 }
 
 // create a method on User called `checkPassword`
@@ -153,7 +175,7 @@ function User(username, password) {
 // return `true` if they match, otherwise return `false`
 
 User.prototype.checkPassword = function checkPassword(password) {
-
+  return password === User.password;
 };
 
 /* eslint-enable no-unused-vars */
