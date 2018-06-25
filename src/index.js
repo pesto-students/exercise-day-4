@@ -15,19 +15,27 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-  let index = 0;
-  const arrayLength = arr.length;
-  const tempArray = [];
-  let chunk;
+  // 1st approach
+  // let index = 0;
+  // const arrayLength = arr.length;
+  // const tempArray = [];
+  // let chunk;
 
-  for (index = 0; index < arrayLength; index += size) {
-    chunk = arr.slice(index, index + size);
-    tempArray.push(chunk);
-  }
+  // for (index = 0; index < arrayLength; index += size) {
+  //   chunk = arr.slice(index, index + size);
+  //   tempArray.push(chunk);
+  // }
 
-  return tempArray;
+  // return tempArray;
+
+  // 2nd approach
+  return arr.reduce((acc, item, index) => {
+    if ((index) % size === 0) {
+      return [...acc, [item]];
+    }
+    return [...acc.slice(0, acc.length - 1), [...acc[acc.length - 1], item]];
+  }, []);
 }
-
 /** (*)
  * Create a function that looks through an array (first argument) and
  * returns the first element in the array that passes a truth test (second argument)
@@ -196,18 +204,10 @@ function orbitalPeriod(arr) {
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 // (*)
-const keys = (obj) => {
-  // Retrieve all the names of the object's properties.
-  // Return the keys as strings in an array.
-  // Based on http://underscorejs.org/#keys
-};
+const keys = obj => Object.keys(obj);
 
 // (*)
-const values = (obj) => {
-  // Return all of the values of the object's own properties.
-  // Ignore functions
-  // http://underscorejs.org/#values
-};
+const values = obj => Object.values(obj);
 
 // (*)
 const mapObject = (obj, cb) => {
@@ -226,6 +226,9 @@ const invert = (obj) => {
   // Returns a copy of the object where the keys have become the values and the values the keys.
   // Assume that all of the object's values will be unique and string serializable.
   // http://underscorejs.org/#invert
+
+  const objKeys = Object.keys(obj);
+  return objKeys.reduce((acc, item) => ({ ...acc, [obj[item]]: item }), {});
 };
 
 // (*)
