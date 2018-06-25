@@ -111,7 +111,24 @@ const curriedAdd = curry(add); <- this is the curry function
 console.log(  curriedAdd(1)(2)  ); // 3
 See 'curry' tests for further info of the requirement
 */
-function curry() {}
+function curry(fn) {
+  return (...restArgs) => { // eslint-disable-line
+    return (...restArgsSub) => {
+      if (!restArgsSub.length) {
+        return fn(...restArgs);
+      }
+      return (...restArgsSubSub) => {
+        // console.log("length: ", restArgsSubSub.length);
+        if (!restArgsSubSub.length) {
+          return fn(...[...restArgs, ...restArgsSub]);
+        }
+        const result = fn(...[...restArgs, ...restArgsSub, ...restArgsSubSub]);
+        // console.log(result);
+        return result;
+      };
+    };
+  };
+}
 
 /* 6 (*)
   Return an array with accounts from bankBalances that are
