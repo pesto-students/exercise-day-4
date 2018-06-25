@@ -1,12 +1,16 @@
 /* eslint-disable no-unused-vars */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
-
+/* eslint no-underscore-dangle: 0 */
 const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  try {
+    const squares = arr.map(number => number * number);
+    return squares;
+  } catch (error) {
+    throw new Error('My custom error');
+  }
 }
 
 /** 2
@@ -18,7 +22,38 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
+  constructor(accountNumber, email, firstName, lastName) {
+    this._accountNumber = accountNumber;
+    this._email = email;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this.products = [];
+  }
 
+  set _accountNumber(newAccountNumber) {
+    try {
+      if (newAccountNumber.length !== 6) {
+        throw new Error('error');
+      } else {
+        this._accountNumber = newAccountNumber;
+      }
+    } catch (error) {
+      throw new Error('Account Number must be a 6-digit number');
+    }
+  }
+
+  set _email(email) {
+    try {
+      const re = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+      if (!re.test(String(email).toLowerCase())) {
+        throw new Error('error');
+      } else {
+        this._accountNumber = email;
+      }
+    } catch (error) {
+      throw new Error('Invalid e-mail');
+    }
+  }
 }
 
 /** 3 (*)
@@ -76,7 +111,24 @@ const curriedAdd = curry(add); <- this is the curry function
 console.log(  curriedAdd(1)(2)  ); // 3
 See 'curry' tests for further info of the requirement
 */
-function curry() {}
+function curry(fn) {
+  return (...restArgs) => { // eslint-disable-line
+    return (...restArgsSub) => {
+      if (!restArgsSub.length) {
+        return fn(...restArgs);
+      }
+      return (...restArgsSubSub) => {
+        // console.log("length: ", restArgsSubSub.length);
+        if (!restArgsSubSub.length) {
+          return fn(...[...restArgs, ...restArgsSub]);
+        }
+        const result = fn(...[...restArgs, ...restArgsSub, ...restArgsSubSub]);
+        // console.log(result);
+        return result;
+      };
+    };
+  };
+}
 
 /* 6 (*)
   Return an array with accounts from bankBalances that are
