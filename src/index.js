@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.splice(howMany);
 }
 
 /** (*)
@@ -15,15 +15,41 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
+  // 1st approach
+  // let index = 0;
+  // const arrayLength = arr.length;
+  // const tempArray = [];
+  // let chunk;
 
+  // for (index = 0; index < arrayLength; index += size) {
+  //   chunk = arr.slice(index, index + size);
+  //   tempArray.push(chunk);
+  // }
+
+  // return tempArray;
+
+  // 2nd approach
+  return arr.reduce((acc, item, index) => {
+    if ((index) % size === 0) {
+      return [...acc, [item]];
+    }
+    return [...acc.slice(0, acc.length - 1), [...acc[acc.length - 1], item]];
+  }, []);
 }
-
 /** (*)
  * Create a function that looks through an array (first argument) and
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  let elementFound;
+  for (let i = 0; i < arr.length; i += 1) {
+    const element = arr[i];
+    if (func(arr[i])) {
+      elementFound = element;
+      break;
+    }
+  }
+  return elementFound;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +62,15 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
+  for (let i = 0; i < arr.length; i += 1) {
+    const element = arr[i];
+    if (!func(arr[i])) {
+      arr.splice(i, 1);
+      i -= 1;
+    }
+  }
 
+  return arr;
 }
 
 /** (*)
@@ -46,7 +80,66 @@ function dropElements(arr, func) {
  * The returned inventory array should be in alphabetical order by item.
  */
 function updateInventory(arr1, arr2) {
+  const inventoryArr = [];
 
+  for (let i = 0; i < arr1.length; i += 1) {
+    const element = arr1[i];
+
+    const [val, key] = element;
+
+    let elemFound = false;
+    for (let j = 0; j < inventoryArr.length; j += 1) {
+      const item = inventoryArr[j];
+      const [val2, key2] = item;
+
+      if (key2 === key) {
+        inventoryArr[j][0] += val;
+        elemFound = true;
+        break;
+      }
+    }
+
+    if (!elemFound) {
+      inventoryArr.push(element);
+    }
+  }
+
+  for (let i = 0; i < arr2.length; i += 1) {
+    const element = arr2[i];
+
+    const [val, key] = element;
+
+    let elemFound = false;
+    for (let j = 0; j < inventoryArr.length; j += 1) {
+      const item = inventoryArr[j];
+      const [val2, key2] = item;
+
+      if (key2 === key) {
+        inventoryArr[j][0] += val;
+        elemFound = true;
+        break;
+      }
+    }
+
+    if (!elemFound) {
+      inventoryArr.push(element);
+    }
+  }
+
+  function compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const first = a[1];
+    const second = b[1];
+    let comparison = 0;
+    if (first > second) {
+      comparison = 1;
+    } else if (first < second) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  return inventoryArr.sort(compare);
 }
 
 // Example inventory lists
@@ -74,6 +167,17 @@ function updateInventory(arr1, arr2) {
  * both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
  */
 function smallestCommons(arr) {
+  // function lcmOfRange(a, b) {
+  //   let range = [];
+  //   for (let i = a; i <= b; i++) {
+  //     range.push(i);
+  //   }
+  //   return lcmOfList(range);
+  // }
+
+  // function lcmOfList(arr1) {
+  //   return arr1.reduce(lcm);
+  // }
 
 }
 
@@ -84,7 +188,6 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
 }
 
 /** (*)
@@ -101,18 +204,10 @@ function orbitalPeriod(arr) {
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 // (*)
-const keys = (obj) => {
-  // Retrieve all the names of the object's properties.
-  // Return the keys as strings in an array.
-  // Based on http://underscorejs.org/#keys
-};
+const keys = obj => Object.keys(obj);
 
 // (*)
-const values = (obj) => {
-  // Return all of the values of the object's own properties.
-  // Ignore functions
-  // http://underscorejs.org/#values
-};
+const values = obj => Object.values(obj);
 
 // (*)
 const mapObject = (obj, cb) => {
@@ -131,6 +226,9 @@ const invert = (obj) => {
   // Returns a copy of the object where the keys have become the values and the values the keys.
   // Assume that all of the object's values will be unique and string serializable.
   // http://underscorejs.org/#invert
+
+  const objKeys = Object.keys(obj);
+  return objKeys.reduce((acc, item) => ({ ...acc, [obj[item]]: item }), {});
 };
 
 // (*)

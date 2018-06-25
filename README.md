@@ -1,6 +1,6 @@
 # Questions
 
-1) What will be the output of this code ? 
+1) What will be the output of this code ?
     ```
     var x = { foo : 1};
     var output = (function() {
@@ -47,3 +47,10 @@
       console.log(objA === objB);
     }());
     ```
+
+
+Answers:
+
+Q1: undefined
+
+Q2:
