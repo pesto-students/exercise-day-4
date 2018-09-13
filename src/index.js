@@ -84,7 +84,10 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  // eslint-disable-next-line
+  return collection.every((obj) => {
+    return obj[pre];
+  });
 }
 
 /** (*)
