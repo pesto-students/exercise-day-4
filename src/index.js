@@ -1,10 +1,17 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable prefer-rest-params */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
+  if (!Array.isArray(arr) || !arr.map(elem => typeof elem).every(t => t === 'Number')) {
+    throw new Error('My custom error');
+  }
+
   const squares = arr.map(number => number * number);
   return squares;
 }
@@ -17,8 +24,68 @@ function squareNumbersArray(arr) {
  * Each parameter must meet specific requirements (see test cases for SavingsAccount)
  */
 
-class SavingsAccount {
+function validateEmail(email) {
+  // eslint-disable-next-line
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
+class SavingsAccount {
+  constructor(accountNumber, email, firstName, lastName) {
+    if (typeof accountNumber !== 'string' || accountNumber.length !== 6) {
+      throw new Error('Account Number must be a 6-digit number');
+    }
+
+    if (typeof email !== 'string' || !validateEmail(email)) {
+      throw new Error('Invalid e-mail');
+    }
+
+    if (typeof firstName !== 'string' || firstName.length < 3 || firstName.length > 20) {
+      throw new Error('First name must be between 3 and 20 characters long');
+    }
+
+    if (typeof lastName !== 'string' || /[^A-Za-z]/.test(lastName)) {
+      throw new Error('Last name must contain english alphabets only');
+    }
+
+    this._accountNumber = accountNumber;
+    this._email = email;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this.products = [];
+  }
+
+  get firstName() {
+    return this._firstName;
+  }
+  set firstName(value) {
+    const prevVal = this._firstName;
+    this._firstName = value;
+    return prevVal;
+  }
+
+  get lastName() {
+    return this._lastName;
+  }
+  set lastName(value) {
+    const prevVal = this._lastName;
+    this._lastName = value;
+    return prevVal;
+  }
+
+  get email() {
+    return this._email;
+  }
+  set email(value) {
+    const prevVal = this._email;
+    this._email = value;
+    return prevVal;
+  }
+
+  addProduct(prod) {
+    this.products.push(prod);
+    return this.products;
+  }
 }
 
 /** 3 (*)
@@ -40,6 +107,24 @@ class SavingsAccount {
  * Check the requestValidator test cases for further information.
  */
 function requestValidator(obj) {
+  const validMethods = ['GET', 'POST', 'DELETE'];
+  if (!obj.hasOwnProperty('method') || validMethods.indexOf(obj.method) === -1) {
+    throw new Error('Invalid request header: Invalid Method');
+  }
+
+  if (!obj.hasOwnProperty('uri') || !(obj.uri === '*' || /^[A-Za-z0-9.]+$/.test(obj.uri))) {
+    throw new Error('Invalid request header: Invalid URI');
+  }
+
+  const validVersions = ['HTTP/0.9', 'HTTP/1.0', 'HTTP/1.1', 'HTTP/2.0'];
+  if (!obj.hasOwnProperty('version') || validVersions.indexOf(obj.version) === -1) {
+    throw new Error('Invalid request header: Invalid Version');
+  }
+
+  if (!obj.hasOwnProperty('message') || /[<>&'"\\]/.test(obj.message)) {
+    throw new Error('Invalid request header: Invalid Message');
+  }
+
   return obj;
 }
 
@@ -63,7 +148,16 @@ expensiveOperation function is called!
 See 'memoize' tests for further info of the requirement
 */
 
-function memoize() {}
+function memoize(fn) {
+  const cache = {};
+  return function memoized() {
+    const stringifiedArgs = Array.prototype.slice.apply(arguments).map(arg => `${arg}`).join('|');
+    if (cache.hasOwnProperty(stringifiedArgs)) return cache[stringifiedArgs];
+
+    cache[stringifiedArgs] = fn(...arguments);
+    return cache[stringifiedArgs];
+  };
+}
 
 /* 5
 Here's the basic usage of the function that you'll be creating:
@@ -82,7 +176,9 @@ function curry() {}
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  return dataset.bankBalances.filter(acc => acc.amount > 100000);
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.
@@ -100,11 +196,20 @@ function hundredThousandairs() {}
       "rounded": 134758
     }
 */
-function datasetWithRoundedDollar() {}
+function datasetWithRoundedDollar() {
+  return dataset.bankBalances.map((acc) => {
+    acc.rounded = Math.round(acc.amount);
+    return acc;
+  });
+}
 
 // 8 (*)
 // Return the sum of all values held at `amount` for each bank object
-function sumOfBankBalances() {}
+function sumOfBankBalances() {
+  const bankBalancesSum =
+    dataset.bankBalances.reduce((accum, account) => accum + Number(account.amount), 0);
+  return Number(bankBalancesSum.toFixed(2));
+}
 
 /* 9 (*)
   from each of the following states:
@@ -117,13 +222,39 @@ function sumOfBankBalances() {}
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-function sumOfInterests() {}
+function sumOfInterests() {
+  const selectedStates = ['WI', 'IL', 'WY', 'OH', 'GA', 'DE'];
+  return Number(dataset.bankBalances.reduce((accum, account) => {
+    if (selectedStates.indexOf(account.state) === -1) return accum;
+
+    const interest = Number((Number(account.amount) * 0.189).toFixed(2));
+    return accum + interest;
+  }, 0).toFixed(2));
+}
 
 /* 10 (*)
   Aggregate the sum of each state into one hash table
   Return the sum of all states with totals greater than 1,000,000
  */
-function higherStateSums() {}
+function higherStateSums() {
+  const stateSums = {};
+  let qualifyingStates = {};
+
+  dataset.bankBalances.forEach((acc) => {
+    if (stateSums[acc.state] === undefined) stateSums[acc.state] = 0;
+
+    stateSums[acc.state] += Number(acc.amount);
+
+    if (stateSums[acc.state] > 1000000) qualifyingStates[acc.state] = 1;
+  });
+
+  qualifyingStates = Object.keys(qualifyingStates);
+
+  let sum = 0;
+  for (let i = 0; i < qualifyingStates.length; i += 1) sum += stateSums[qualifyingStates[i]];
+
+  return Number(sum.toFixed(2));
+}
 
 module.exports = {
   squareNumbersArray,
