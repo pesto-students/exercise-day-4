@@ -5,6 +5,9 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
+  if (!Number(arr)) {
+    throw new Error('My custom error');
+  }
   const squares = arr.map(number => number * number);
   return squares;
 }
@@ -18,7 +21,44 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
+  constructor(accountNumber, email, firstName, lastName) {
+    this.accountNumber = accountNumber;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.products = [];
+  }
+  get accountNumber() {
+    return this.accountNumber;
+  }
+  get email() {
+    return this.email;
+  }
+  get firstName() {
+    return this.firstName;
+  }
+  get lastName() {
+    return this.lastName;
+  }
+  get products() {
+    return this.products;
+  }
 
+  set accountNumber(accountNumber) {
+    this.accountNumber = accountNumber;
+  }
+  set email(email) {
+    this.email = email;
+  }
+  set firstName(firstName) {
+    this.firstName = firstName;
+  }
+  set lastName(lastName) {
+    this.lastName = lastName;
+  }
+  set products(products) {
+    this.products = products;
+  }
 }
 
 /** 3 (*)
