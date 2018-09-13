@@ -36,7 +36,7 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  return arr.filter(func);
 }
 
 /** (*)
