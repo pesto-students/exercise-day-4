@@ -5,7 +5,7 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  if (Number(arr)) {
+  if (!Number(arr)) {
     throw new Error('My custom error');
   }
   return arr * arr;
@@ -111,11 +111,28 @@ function hundredThousandairs() {
       "rounded": 134758
     }
 */
-function datasetWithRoundedDollar() {}
+function datasetWithRoundedDollar() {
+  const accounts = dataset.bankBalances.map((account) => {
+    const balance = Number(account.amount);
+    // eslint-disable-next-line
+    account.rounded = Math.round(balance);
+    return account;
+  });
+  return accounts;
+}
 
 // 8 (*)
 // Return the sum of all values held at `amount` for each bank object
-function sumOfBankBalances() {}
+function sumOfBankBalances() {
+  const sum = dataset.bankBalances.reduce((acc, account) => {
+    const balance = Number(account.amount);
+    // eslint-disable-next-line
+    acc += balance;
+    return acc;
+  }, 0);
+
+  return Number(sum.toFixed(2));
+}
 
 /* 9 (*)
   from each of the following states:
