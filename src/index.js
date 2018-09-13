@@ -28,7 +28,7 @@ class SavingsAccount {
     if (!_email.indexOf("@") > 0) {
       throw new Error('Invalid e-mail');
     }
-    if (_firstName.length < 3 && _firstName.length > 20) {
+    if (_firstName.length < 3 || _firstName.length > 20) {
       throw new Error('First name must be between 3 and 20 characters long');
     }
     if (!_lastName.match(/^[A-Za-z]+$/)) {
