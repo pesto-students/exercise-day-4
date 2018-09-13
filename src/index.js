@@ -5,10 +5,13 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  if (!Number(arr)) {
+    throw new Error('My custom error');
+  }
+  return arr * arr;
 }
-
+// const myArray = [1, 2, 'string', 4];
+// squareNumbersArray(...myArray);
 /** 2
  * Write a class for a checking account that validates it’s created with valid parameters.
  * A SavingsAccount has an accountNumber, email, firstName, lastName all set through the
@@ -76,13 +79,21 @@ const curriedAdd = curry(add); <- this is the curry function
 console.log(  curriedAdd(1)(2)  ); // 3
 See 'curry' tests for further info of the requirement
 */
-function curry() {}
+function curry() {
+
+}
 
 /* 6 (*)
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  const accounts = dataset.bankBalances.filter((account) => {
+    const balance = Number(account.amount);
+    return balance > 100000;
+  });
+  return accounts;
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.
@@ -100,11 +111,28 @@ function hundredThousandairs() {}
       "rounded": 134758
     }
 */
-function datasetWithRoundedDollar() {}
+function datasetWithRoundedDollar() {
+  const accounts = dataset.bankBalances.map((account) => {
+    const balance = Number(account.amount);
+    // eslint-disable-next-line
+    account.rounded = Math.round(balance);
+    return account;
+  });
+  return accounts;
+}
 
 // 8 (*)
 // Return the sum of all values held at `amount` for each bank object
-function sumOfBankBalances() {}
+function sumOfBankBalances() {
+  const sum = dataset.bankBalances.reduce((acc, account) => {
+    const balance = Number(account.amount);
+    // eslint-disable-next-line
+    acc += balance;
+    return acc;
+  }, 0);
+
+  return Number(sum.toFixed(2));
+}
 
 /* 9 (*)
   from each of the following states:
@@ -117,13 +145,45 @@ function sumOfBankBalances() {}
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-function sumOfInterests() {}
+function sumOfInterests() {
+  const states = ['GA', 'IL', 'OH', 'WI', 'WY', 'DE'];
+  const sum = dataset.bankBalances.reduce((acc, account) => {
+    if (states.includes(account.state)) {
+      const balance = Number(account.amount);
+      const interest = (balance * 18.9) / 100;
+      // eslint-disable-next-line
+      acc += (balance + interest);
+    }
+    return acc;
+  }, 0);
 
+  return Number(sum.toFixed(2));
+}
 /* 10 (*)
   Aggregate the sum of each state into one hash table
   Return the sum of all states with totals greater than 1,000,000
  */
-function higherStateSums() {}
+function higherStateSums() {
+  const stateSum = {};
+
+  dataset.bankBalances.map((account) => {
+    const balance = Number(account.amount);
+    if (!stateSum[account.state]) {
+      stateSum[account.state] = 0;
+    }
+    stateSum[account.state] += balance;
+    return account;
+  });
+
+  const sum = Object.keys(stateSum).reduce((acc, element) => {
+    if (stateSum[element] > 1000000) {
+      // eslint-disable-next-line
+      acc += stateSum[element];
+    }
+    return acc;
+  }, 0);
+  return sum;
+}
 
 module.exports = {
   squareNumbersArray,
