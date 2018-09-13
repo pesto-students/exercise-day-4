@@ -226,7 +226,25 @@ function sumOfInterests() {
   Aggregate the sum of each state into one hash table
   Return the sum of all states with totals greater than 1,000,000
  */
-function higherStateSums() {}
+function higherStateSums() {
+  const stateSums = {};
+  let qualifyingStates = {};
+
+  dataset.bankBalances.forEach((acc) => {
+    if (stateSums[acc.state] === undefined) stateSums[acc.state] = 0;
+
+    stateSums[acc.state] += Number(acc.amount);
+
+    if (stateSums[acc.state] > 1000000) qualifyingStates[acc.state] = 1;
+  });
+
+  qualifyingStates = Object.keys(qualifyingStates);
+
+  let sum = 0;
+  for (let i = 0; i < qualifyingStates.length; i += 1) sum += stateSums[qualifyingStates[i]];
+
+  return Number(sum.toFixed(2));
+}
 
 module.exports = {
   squareNumbersArray,
