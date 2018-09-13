@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-underscore-dangle */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
@@ -21,8 +22,68 @@ function squareNumbersArray(arr) {
  * Each parameter must meet specific requirements (see test cases for SavingsAccount)
  */
 
-class SavingsAccount {
+function validateEmail(email) {
+  // eslint-disable-next-line
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
+class SavingsAccount {
+  constructor(accountNumber, email, firstName, lastName) {
+    if (typeof accountNumber !== 'string' || accountNumber.length !== 6) {
+      throw new Error('Account Number must be a 6-digit number');
+    }
+
+    if (typeof email !== 'string' || !validateEmail(email)) {
+      throw new Error('Invalid e-mail');
+    }
+
+    if (typeof firstName !== 'string' || firstName.length < 3 || firstName.length > 20) {
+      throw new Error('First name must be between 3 and 20 characters long');
+    }
+
+    if (typeof lastName !== 'string' || /[^A-Za-z]/.test(lastName)) {
+      throw new Error('Last name must contain english alphabets only');
+    }
+
+    this._accountNumber = accountNumber;
+    this._email = email;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this.products = [];
+  }
+
+  get firstName() {
+    return this._firstName;
+  }
+  set firstName(value) {
+    const prevVal = this._firstName;
+    this._firstName = value;
+    return prevVal;
+  }
+
+  get lastName() {
+    return this._lastName;
+  }
+  set lastName(value) {
+    const prevVal = this._lastName;
+    this._lastName = value;
+    return prevVal;
+  }
+
+  get email() {
+    return this._email;
+  }
+  set email(value) {
+    const prevVal = this._email;
+    this._email = value;
+    return prevVal;
+  }
+
+  addProduct(prod) {
+    this.products.push(prod);
+    return this.products;
+  }
 }
 
 /** 3 (*)
