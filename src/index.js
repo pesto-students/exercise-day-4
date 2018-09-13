@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable */
 
 /** (*)
  * Return the remaining elements of an array after chopping
@@ -6,7 +6,8 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  arr.splice(0, howMany);
+  return arr;
 }
 
 /** (*)
@@ -15,15 +16,33 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const result = [];
+  let temp = [];
+  arr.forEach((el) => {
+    temp.push(el);
+    if (temp.length === size) {
+      result.push(temp);
+      temp = [];
+    }
+  });
+  if (temp.length > 0) {
+    result.push(temp);
+  }
+  return result;
 }
-
 /** (*)
  * Create a function that looks through an array (first argument) and
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  let n;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      n = arr[i];
+      return n;
+    }
+  }
+  return n;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -37,8 +56,11 @@ function findElement(arr, func) {
  */
 function dropElements(arr, func) {
 
+  while (!func(arr[0])) {
+    arr.shift();
+  }
+  return arr;
 }
-
 /** (*)
  * Compare and update the inventory stored in a 2D array against a second 2D array of a
  * fresh delivery. Update the current existing inventory item quantities (in arr1).
