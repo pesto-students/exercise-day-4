@@ -6,7 +6,9 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  const arrCopy = arr.concat([]);
+  arrCopy.splice(0, howMany);
+  return arrCopy;
 }
 
 /** (*)
