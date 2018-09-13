@@ -103,7 +103,7 @@ function smallestCommons(arr) {
 function truthCheck(collection, pre) {
   for (let i = 0; i < collection.length; i += 1) {
     const o = collection[i];
-    if (!Object.prototype.hasOwnProperty.call(o, pre)) {
+    if (!Object.prototype.hasOwnProperty.call(o, pre) || o[pre] === null || o[pre] === '' || o[pre] === 0) {
       return false;
     }
   }
