@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-prototype-builtins */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
@@ -105,6 +106,24 @@ class SavingsAccount {
  * Check the requestValidator test cases for further information.
  */
 function requestValidator(obj) {
+  const validMethods = ['GET', 'POST', 'DELETE'];
+  if (!obj.hasOwnProperty('method') || validMethods.indexOf(obj.method) === -1) {
+    throw new Error('Invalid request header: Invalid Method');
+  }
+
+  if (!obj.hasOwnProperty('uri') || !(obj.uri === '*' || /^[A-Za-z0-9.]+$/.test(obj.uri))) {
+    throw new Error('Invalid request header: Invalid URI');
+  }
+
+  const validVersions = ['HTTP/0.9', 'HTTP/1.0', 'HTTP/1.1', 'HTTP/2.0'];
+  if (!obj.hasOwnProperty('version') || validVersions.indexOf(obj.version) === -1) {
+    throw new Error('Invalid request header: Invalid Version');
+  }
+
+  if (!obj.hasOwnProperty('message') || /[<>&'"\\]/.test(obj.message)) {
+    throw new Error('Invalid request header: Invalid Message');
+  }
+
   return obj;
 }
 
