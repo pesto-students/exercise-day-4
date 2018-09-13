@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.splice(howMany);
 }
 
 /** (*)
@@ -15,7 +15,13 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  const newArr = [];
+  let i = 0;
+  while (i < arr.length) {
+    newArr.push(arr.splice(0, size));
+    i += 1;
+  }
+  return newArr;
 }
 
 /** (*)
@@ -23,7 +29,12 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      return arr[i];
+    }
+  }
+  return undefined;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +47,13 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  const newArr = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      newArr.push(arr[i]);
+    }
+  }
+  return newArr;
 }
 
 /** (*)
@@ -84,7 +101,13 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  for (let i = 0; i < collection.length; i += 1) {
+    const o = collection[i];
+    if (!Object.prototype.hasOwnProperty.call(o, pre)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /** (*)
