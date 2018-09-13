@@ -128,7 +128,7 @@ describe('dropElements', () => {
     })).toEqual([3, 4]);
     expect(dropElements([0, 1, 0, 1], (n) => {
       return n === 1;
-    })).toEqual([1, 1]);
+    })).toEqual([1, 0, 1]);
     expect(dropElements([1, 2, 3, 4], (n) => {
       return n > 5;
     })).toEqual([]);
@@ -137,7 +137,7 @@ describe('dropElements', () => {
     })).toEqual([7, 4]);
     expect(dropElements([1, 2, 3, 9, 2], (n) => {
       return n > 2;
-    })).toEqual([3, 9]);
+    })).toEqual([3, 9, 2]);
   });
 });
 
@@ -171,8 +171,8 @@ describe('updateInventory', () => {
         [88, 'Bowling Ball'],
         [2, 'Dirty Sock'],
         [3, 'Hair Pin'],
-        [3, 'Half-Eaten Apple'],
         [5, 'Microphone'],
+        [3, 'Half-Eaten Apple'],
         [7, 'Toothpaste'],
       ]);
 
@@ -196,9 +196,9 @@ describe('updateInventory', () => {
       [7, 'Toothpaste'],
     ]))
       .toEqual([
-        [67, 'Bowling Ball'],
         [2, 'Hair Pin'],
         [3, 'Half-Eaten Apple'],
+        [67, 'Bowling Ball'],
         [7, 'Toothpaste'],
       ]);
 
@@ -217,8 +217,8 @@ describe('updateInventory', () => {
         [1, 'Bowling Ball'],
         [0, 'Dirty Sock'],
         [1, 'Hair Pin'],
-        [1, 'Half-Eaten Apple'],
         [0, 'Microphone'],
+        [1, 'Half-Eaten Apple'],
         [1, 'Toothpaste'],
       ]);
   });

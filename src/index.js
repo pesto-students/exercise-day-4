@@ -6,7 +6,9 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  const arrCopy = arr.concat([]);
+  arrCopy.splice(0, howMany);
+  return arrCopy;
 }
 
 /** (*)
@@ -15,7 +17,11 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
+  const arrCopy = arr.concat([]);
 
+  const ret = [];
+  while (arrCopy.length > 0) ret.push(arrCopy.splice(0, size));
+  return ret;
 }
 
 /** (*)
@@ -23,7 +29,9 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
+  for (let i = 0; i < arr.length; i += 1) if (func(arr[i])) return arr[i];
 
+  return undefined;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +44,8 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  while (arr.length > 0 && !func(arr[0])) arr.shift();
+  return arr;
 }
 
 /** (*)
@@ -46,7 +55,16 @@ function dropElements(arr, func) {
  * The returned inventory array should be in alphabetical order by item.
  */
 function updateInventory(arr1, arr2) {
-
+  const newInventory = arr1.concat([]);
+  arr2.forEach((deliveredItem) => {
+    const idx = arr1.findIndex(inStockItem => inStockItem[1] === deliveredItem[1]);
+    if (idx === -1) {
+      newInventory.push(deliveredItem);
+    } else {
+      newInventory[idx][0] += deliveredItem[0];
+    }
+  });
+  return newInventory;
 }
 
 // Example inventory lists
@@ -74,7 +92,43 @@ function updateInventory(arr1, arr2) {
  * both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
  */
 function smallestCommons(arr) {
+  const lo = Math.min(arr[0], arr[1]);
+  const hi = Math.max(arr[0], arr[1]);
 
+  function buildNumList(start, stop, step) {
+    const ret = [];
+    for (let i = start; i <= stop; i += step) ret.push(i);
+    return ret;
+  }
+  const numsToDivideBy = buildNumList(lo, hi, 1);
+
+  let i = 1;
+
+  // eslint-disable-next-line
+  while (true) {
+    const candidate = lo * hi * i;
+    let candidateSuccess = true;
+
+    // overflow means if there is a smallestCommon, it is too big for JS
+    if (candidate === Infinity || candidate === -Infinity) return undefined;
+
+    for (let j = 0; j < numsToDivideBy.length; j += 1) {
+      if (candidate % numsToDivideBy[j] !== 0) {
+        candidateSuccess = false;
+        break;
+      }
+    }
+
+    if (!candidateSuccess) {
+      i += 1;
+
+      // eslint-disable-next-line
+      continue;
+    }
+
+    // candidate is divisible by all numbers in numsToDivideBy
+    return candidate;
+  }
 }
 
 /** (*)
@@ -84,7 +138,7 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  return collection.every(elem => !!elem[pre]);
 }
 
 /** (*)
@@ -97,6 +151,20 @@ function truthCheck(collection, pre) {
 function orbitalPeriod(arr) {
   const GM = 398600.4418;
   const earthRadius = 6367.4447;
+
+  function cube(n) {
+    return n * n * n;
+  }
+
+  function altToEarthOrbPeriod(alt) {
+    return 2 * Math.PI * Math.sqrt(cube(earthRadius + alt) / GM);
+  }
+
+  // eslint-disable-next-line
+  return arr.map((revolvingBody) => ({
+    name: revolvingBody.name,
+    orbitalPeriod: Math.round(altToEarthOrbPeriod(revolvingBody.avgAlt)),
+  }));
 }
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
