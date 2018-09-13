@@ -166,7 +166,9 @@ function curry() {}
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  return dataset.bankBalances.filter(acc => acc.amount > 100000);
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.
@@ -184,11 +186,20 @@ function hundredThousandairs() {}
       "rounded": 134758
     }
 */
-function datasetWithRoundedDollar() {}
+function datasetWithRoundedDollar() {
+  return dataset.bankBalances.map((acc) => {
+    acc.rounded = Math.round(acc.amount);
+    return acc;
+  });
+}
 
 // 8 (*)
 // Return the sum of all values held at `amount` for each bank object
-function sumOfBankBalances() {}
+function sumOfBankBalances() {
+  const bankBalancesSum =
+    dataset.bankBalances.reduce((accum, account) => accum + Number(account.amount), 0);
+  return Number(bankBalancesSum.toFixed(2));
+}
 
 /* 9 (*)
   from each of the following states:
