@@ -40,7 +40,8 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  while (arr.length > 0 && !func(arr[0])) arr.shift();
+  return arr;
 }
 
 /** (*)
