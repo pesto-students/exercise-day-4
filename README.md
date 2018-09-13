@@ -1,7 +1,7 @@
 # Questions
 
 1) What will be the output of this code ? 
-    ```
+    ```js
     var x = { foo : 1};
     var output = (function() {
       delete x.foo;
@@ -12,7 +12,7 @@
     ```
 
 2) What will be the output of the following code ?
-    ```
+    ```js
     var Employee = {
       company: 'xyz'
     }
@@ -22,7 +22,7 @@
     ```
 
 3) How we will calculate length of the above associative array counterArray ?
-    ```
+    ```js
     var counterArray = {
       A : 3,
       B : 4
