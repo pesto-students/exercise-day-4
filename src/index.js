@@ -1,10 +1,13 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable  */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
+  if (typeof (arr) === 'undefined') {
+    throw new Error('My custom error');
+  }
   const squares = arr.map(number => number * number);
   return squares;
 }
@@ -18,7 +21,25 @@ function squareNumbersArray(arr) {
  */
 
 class SavingsAccount {
-
+  constructor(accountNumber, _email, _firstName, _lastName) {
+    if (accountNumber.length !== 6) {
+      throw new Error('Account Number must be a 6-digit number');
+    }
+    if (!_email.indexOf("@") > 0) {
+      throw new Error('Invalid e-mail');
+    }
+    if (_firstName.length < 3 && _firstName.length > 20) {
+      throw new Error('First name must be between 3 and 20 characters long');
+    }
+    if (!_lastName.match(/^[A-Za-z]+$/)) {
+      throw new Error('Last name must contain english alphabets only');
+    }
+    this._accountNumber = accountNumber,
+      this._email = _email,
+      this._firstName = _firstName,
+      this._lastName = _lastName,
+      this.products = []
+  }
 }
 
 /** 3 (*)
