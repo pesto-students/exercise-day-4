@@ -5,10 +5,13 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
-  const squares = arr.map(number => number * number);
-  return squares;
+  if (Number(arr)) {
+    throw new Error('My custom error');
+  }
+  return arr * arr;
 }
-
+// const myArray = [1, 2, 'string', 4];
+// squareNumbersArray(...myArray);
 /** 2
  * Write a class for a checking account that validates it’s created with valid parameters.
  * A SavingsAccount has an accountNumber, email, firstName, lastName all set through the
@@ -76,7 +79,9 @@ const curriedAdd = curry(add); <- this is the curry function
 console.log(  curriedAdd(1)(2)  ); // 3
 See 'curry' tests for further info of the requirement
 */
-function curry() {}
+function curry() {
+
+}
 
 /* 6 (*)
   Return an array with accounts from bankBalances that are
