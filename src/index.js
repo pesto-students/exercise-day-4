@@ -5,11 +5,16 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
+  /*
   if (arr.map(el => typeof el).every(type => type !== 'number')) {
     throw new Error('My custom error');
   }
   const squares = arr.map(number => number * number);
-  return squares;
+  */
+  if (Number(arr)) {
+    throw new Error('My custom error');
+  }
+  return arr * arr;
 }
 
 /** 2
@@ -66,7 +71,20 @@ expensiveOperation function is called!
 See 'memoize' tests for further info of the requirement
 */
 
-function memoize() {}
+function memoize(fn) {
+  memoize.cache = {};
+  return () => {
+    // eslint-disable-next-line
+    const key = JSON.stringify(arguments);
+    if (memoize.cache[key]) {
+      return memoize.cache[key];
+    }
+    // eslint-disable-next-line
+    const val = fn.apply(this, arguments);
+    memoize.cache[key] = val;
+    return val;
+  };
+}
 
 /* 5
 Here's the basic usage of the function that you'll be creating:
