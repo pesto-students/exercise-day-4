@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-prototype-builtins */
+/* eslint-disable prefer-rest-params */
 // NOTE: Do not use for or while loop, or Array.forEach in any of these questions
 
 const dataset = require('./dataset.json');
@@ -147,7 +148,16 @@ expensiveOperation function is called!
 See 'memoize' tests for further info of the requirement
 */
 
-function memoize() {}
+function memoize(fn) {
+  const cache = {};
+  return function memoized() {
+    const stringifiedArgs = Array.prototype.slice.apply(arguments).map(arg => `${arg}`).join('|');
+    if (cache.hasOwnProperty(stringifiedArgs)) return cache[stringifiedArgs];
+
+    cache[stringifiedArgs] = fn(...arguments);
+    return cache[stringifiedArgs];
+  };
+}
 
 /* 5
 Here's the basic usage of the function that you'll be creating:
