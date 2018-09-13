@@ -6,7 +6,13 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  const arr2 = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (i >= howMany) {
+      arr2.push(arr[i]);
+    }
+  }
+  return arr2;
 }
 
 /** (*)
@@ -15,7 +21,10 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
-
+  // const count = size;
+  // let arr2 = [];
+  // for (let i = 0; i < arr.length; i + 1) {
+  // }
 }
 
 /** (*)
@@ -23,7 +32,12 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      return arr[i];
+    }
+  }
+  return undefined;
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +50,13 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  const arr2 = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (func(arr[i])) {
+      arr2.push(arr[i]);
+    }
+  }
+  return arr2;
 }
 
 /** (*)
