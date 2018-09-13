@@ -17,7 +17,11 @@ function slasher(arr, howMany) {
  * Refer Array.push() and Array.slice() IF STUCK.
  */
 function chunkArrayInGroups(arr, size) {
+  const arrCopy = arr.concat([]);
 
+  const ret = [];
+  while (arrCopy.length > 0) ret.push(arrCopy.splice(0, size));
+  return ret;
 }
 
 /** (*)
