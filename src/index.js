@@ -104,10 +104,12 @@ function orbitalPeriod(arr) {
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 // (*)
+// eslint-disable-next-line
 const keys = (obj) => {
   // Retrieve all the names of the object's properties.
   // Return the keys as strings in an array.
   // Based on http://underscorejs.org/#keys
+  return Object.keys(obj);
 };
 
 // (*)
@@ -115,6 +117,12 @@ const values = (obj) => {
   // Return all of the values of the object's own properties.
   // Ignore functions
   // http://underscorejs.org/#values
+  const valArray = [];
+  // eslint-disable-next-line
+  for(let key in obj) {
+    valArray.push(obj[key]);
+  }
+  return valArray;
 };
 
 // (*)
@@ -127,6 +135,13 @@ const mapObject = (obj, cb) => {
 const pairs = (obj) => {
   // Convert an object into a list of [key, value] pairs.
   // http://underscorejs.org/#pairs
+  const valArray = [];
+  // eslint-disable-next-line
+  for(const key in obj) {
+    const keyValPair = [key, obj[key]];
+    valArray.push(keyValPair);
+  }
+  return valArray;
 };
 
 // (*)
