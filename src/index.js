@@ -86,7 +86,7 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  return collection.every(elem => !!elem[pre]);
 }
 
 /** (*)
