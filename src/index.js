@@ -212,7 +212,15 @@ function sumOfBankBalances() {
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-function sumOfInterests() {}
+function sumOfInterests() {
+  const selectedStates = ['WI', 'IL', 'WY', 'OH', 'GA', 'DE'];
+  return Number(dataset.bankBalances.reduce((accum, account) => {
+    if (selectedStates.indexOf(account.state) === -1) return accum;
+
+    const interest = Number((Number(account.amount) * 0.189).toFixed(2));
+    return accum + interest;
+  }, 0).toFixed(2));
+}
 
 /* 10 (*)
   Aggregate the sum of each state into one hash table
