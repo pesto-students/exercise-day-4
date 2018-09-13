@@ -87,7 +87,13 @@ function curry() {
   Return an array with accounts from bankBalances that are
   greater than 100000 without using for or while loop
 */
-function hundredThousandairs() {}
+function hundredThousandairs() {
+  const accounts = dataset.bankBalances.filter((account) => {
+    const balance = Number(account.amount);
+    return balance > 100000;
+  });
+  return accounts;
+}
 
 /* 7 (*)
   DO NOT MUTATE DATA.
