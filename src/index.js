@@ -151,6 +151,20 @@ function truthCheck(collection, pre) {
 function orbitalPeriod(arr) {
   const GM = 398600.4418;
   const earthRadius = 6367.4447;
+
+  function cube(n) {
+    return n * n * n;
+  }
+
+  function altToEarthOrbPeriod(alt) {
+    return 2 * Math.PI * Math.sqrt(cube(earthRadius + alt) / GM);
+  }
+
+  // eslint-disable-next-line
+  return arr.map((revolvingBody) => ({
+    name: revolvingBody.name,
+    orbitalPeriod: Math.round(altToEarthOrbPeriod(revolvingBody.avgAlt)),
+  }));
 }
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
