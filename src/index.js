@@ -88,7 +88,43 @@ function updateInventory(arr1, arr2) {
  * both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
  */
 function smallestCommons(arr) {
+  const lo = Math.min(arr[0], arr[1]);
+  const hi = Math.max(arr[0], arr[1]);
 
+  function buildNumList(start, stop, step) {
+    const ret = [];
+    for (let i = start; i <= stop; i += step) ret.push(i);
+    return ret;
+  }
+  const numsToDivideBy = buildNumList(lo, hi, 1);
+
+  let i = 1;
+
+  // eslint-disable-next-line
+  while (true) {
+    const candidate = lo * hi * i;
+    let candidateSuccess = true;
+
+    // overflow means if there is a smallestCommon, it is too big for JS
+    if (candidate === Infinity || candidate === -Infinity) return undefined;
+
+    for (let j = 0; j < numsToDivideBy.length; j += 1) {
+      if (candidate % numsToDivideBy[j] !== 0) {
+        candidateSuccess = false;
+        break;
+      }
+    }
+
+    if (!candidateSuccess) {
+      i += 1;
+
+      // eslint-disable-next-line
+      continue;
+    }
+
+    // candidate is divisible by all numbers in numsToDivideBy
+    return candidate;
+  }
 }
 
 /** (*)
