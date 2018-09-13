@@ -6,7 +6,7 @@
  * The head means the beginning of the array, or the zeroth index.
  */
 function slasher(arr, howMany) {
-
+  return arr.slice(howMany);
 }
 
 /** (*)
@@ -23,7 +23,7 @@ function chunkArrayInGroups(arr, size) {
  * returns the first element in the array that passes a truth test (second argument)
  */
 function findElement(arr, func) {
-
+  return arr.find(func);
 }
 // findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -36,7 +36,7 @@ function findElement(arr, func) {
  * Return the rest of the array, otherwise return an empty array.
  */
 function dropElements(arr, func) {
-
+  return arr.filter(func);
 }
 
 /** (*)
@@ -84,7 +84,10 @@ function smallestCommons(arr) {
  * dot notation or [] notation.
  */
 function truthCheck(collection, pre) {
-
+  // eslint-disable-next-line
+  return collection.every((obj) => {
+    return obj[pre];
+  });
 }
 
 /** (*)
@@ -101,10 +104,12 @@ function orbitalPeriod(arr) {
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 // (*)
+// eslint-disable-next-line
 const keys = (obj) => {
   // Retrieve all the names of the object's properties.
   // Return the keys as strings in an array.
   // Based on http://underscorejs.org/#keys
+  return Object.keys(obj);
 };
 
 // (*)
@@ -112,6 +117,12 @@ const values = (obj) => {
   // Return all of the values of the object's own properties.
   // Ignore functions
   // http://underscorejs.org/#values
+  const valArray = [];
+  // eslint-disable-next-line
+  for(let key in obj) {
+    valArray.push(obj[key]);
+  }
+  return valArray;
 };
 
 // (*)
@@ -124,6 +135,13 @@ const mapObject = (obj, cb) => {
 const pairs = (obj) => {
   // Convert an object into a list of [key, value] pairs.
   // http://underscorejs.org/#pairs
+  const valArray = [];
+  // eslint-disable-next-line
+  for(const key in obj) {
+    const keyValPair = [key, obj[key]];
+    valArray.push(keyValPair);
+  }
+  return valArray;
 };
 
 // (*)
@@ -131,6 +149,12 @@ const invert = (obj) => {
   // Returns a copy of the object where the keys have become the values and the values the keys.
   // Assume that all of the object's values will be unique and string serializable.
   // http://underscorejs.org/#invert
+  const invObj = {};
+  // eslint-disable-next-line
+  for(const key in obj) {
+    invObj[obj[key]] = key;
+  }
+  return invObj;
 };
 
 // (*)
@@ -138,6 +162,14 @@ const defaults = (obj, defaultProps) => {
   // Fill in undefined properties that match properties on the `defaultProps` parameter object.
   // Return `obj`.
   // http://underscorejs.org/#defaults
+  const newObj = obj;
+  // eslint-disable-next-line
+  for(const key in defaultProps) {
+    if (!obj[key]) {
+      newObj[key] = defaultProps[key];
+    }
+  }
+  return newObj;
 };
 
 
