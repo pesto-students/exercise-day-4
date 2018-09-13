@@ -5,6 +5,9 @@ const dataset = require('./dataset.json');
 
 // 1 (*)
 function squareNumbersArray(arr) {
+  if (arr.map(el => typeof el).every(type => type !== 'number')) {
+    throw new Error('My custom error');
+  }
   const squares = arr.map(number => number * number);
   return squares;
 }
