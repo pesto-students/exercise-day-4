@@ -16,10 +16,8 @@ function slasher(arr, howMany) {
  */
 function chunkArrayInGroups(arr, size) {
   const newArr = [];
-  let i = 0;
-  while (i < arr.length) {
+  while (arr.length) {
     newArr.push(arr.splice(0, size));
-    i += 1;
   }
   return newArr;
 }
