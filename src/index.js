@@ -51,7 +51,16 @@ function dropElements(arr, func) {
  * The returned inventory array should be in alphabetical order by item.
  */
 function updateInventory(arr1, arr2) {
-
+  const newInventory = arr1.concat([]);
+  arr2.forEach((deliveredItem) => {
+    const idx = arr1.findIndex(inStockItem => inStockItem[1] === deliveredItem[1]);
+    if (idx === -1) {
+      newInventory.push(deliveredItem);
+    } else {
+      newInventory[idx][0] += deliveredItem[0];
+    }
+  });
+  return newInventory;
 }
 
 // Example inventory lists
