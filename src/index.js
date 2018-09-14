@@ -24,9 +24,65 @@ function squareNumbersArray(arr) {
  * Don't forget to use getters and setters
  * Each parameter must meet specific requirements (see test cases for SavingsAccount)
  */
-
+function validEmail(e) {
+  // eslint-disable-next-line
+  const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+  // eslint-disable-next-line
+  return String(e).search (filter) != -1;
+}
 class SavingsAccount {
+  constructor(accN, email, fName, lName) {
+    // eslint-disable-next-line
+    this._accountNumber = accN;
+    // eslint-disable-next-line
+    this._email = email;
+    // eslint-disable-next-line
+    this._firstName = fName;
+    // eslint-disable-next-line
+    this._lastName = lName;
+    this.products = [];
 
+    if (accN.length !== 6) {
+      throw new Error('Account Number must be a 6-digit number');
+    }
+    if (fName.length <= 3 || fName.length >= 20) {
+      throw new Error('First name must be between 3 and 20 characters long');
+    }
+    if (/[^A-Za-z]/.test(lName)) {
+      throw new Error('Last name must contain english alphabets only');
+    }
+    if (typeof email !== 'string' || !validEmail(email)) {
+      throw new Error('Invalid e-mail');
+    }
+  }
+  get firstName() {
+    // eslint-disable-next-line
+    return this._firstName;
+  }
+  set firstName(value) {
+    // eslint-disable-next-line
+    this._firstName = value;
+    return value;
+  }
+  get lastName() {
+    // eslint-disable-next-line
+    return this._lastName;
+  }
+  set lastName(value) {
+    // eslint-disable-next-line
+    this._lastName = value;
+  }
+  get email() {
+    // eslint-disable-next-line
+    return this._email;
+  }
+  set email(value) {
+    // eslint-disable-next-line
+    this._email = value;
+  }
+  addProduct(prod) {
+    this.products.push(prod);
+  }
 }
 
 /** 3 (*)
@@ -72,17 +128,15 @@ See 'memoize' tests for further info of the requirement
 */
 
 function memoize(fn) {
-  memoize.cache = {};
-  return () => {
+  const cache = {};
+  return function memoized() {
     // eslint-disable-next-line
-    const key = JSON.stringify(arguments);
-    if (memoize.cache[key]) {
-      return memoize.cache[key];
-    }
+    const stringifiedArgs = Array.prototype.slice.apply(arguments).map(arg => `${arg}`).join('|');
     // eslint-disable-next-line
-    const val = fn.apply(this, arguments);
-    memoize.cache[key] = val;
-    return val;
+    if (cache.hasOwnProperty(stringifiedArgs)) return cache[stringifiedArgs];
+    // eslint-disable-next-line
+     cache[stringifiedArgs] = fn(...arguments);
+    return cache[stringifiedArgs];
   };
 }
 
