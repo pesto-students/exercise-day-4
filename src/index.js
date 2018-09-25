@@ -4,17 +4,12 @@
 const dataset = require('./dataset.json');
 
 // 1 (*)
-function squareNumbersArray(arr) {
-  /*
-  if (arr.map(el => typeof el).every(type => type !== 'number')) {
-    throw new Error('My custom error');
-  }
-  const squares = arr.map(number => number * number);
-  */
-  if (Number(arr)) {
-    throw new Error('My custom error');
-  }
-  return arr * arr;
+function squareNumbersArray(...arr) {
+  arr.map(el => typeof el).map((types) => {
+    if (types !== 'number') throw new Error('My custom error');
+    return types;
+  });
+  return arr.map(el => el * el);
 }
 
 /** 2
@@ -28,7 +23,7 @@ function validEmail(e) {
   // eslint-disable-next-line
   const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
   // eslint-disable-next-line
-  return String(e).search (filter) != -1;
+  return String(e).search(filter) != -1;
 }
 class SavingsAccount {
   constructor(accN, email, fName, lName) {
@@ -129,14 +124,15 @@ See 'memoize' tests for further info of the requirement
 
 function memoize(fn) {
   const cache = {};
-  return function memoized() {
-    // eslint-disable-next-line
-    const stringifiedArgs = Array.prototype.slice.apply(arguments).map(arg => `${arg}`).join('|');
-    // eslint-disable-next-line
-    if (cache.hasOwnProperty(stringifiedArgs)) return cache[stringifiedArgs];
-    // eslint-disable-next-line
-     cache[stringifiedArgs] = fn(...arguments);
-    return cache[stringifiedArgs];
+  return (...args) => {
+    // const n = args[0];
+    const str = JSON.stringify(args);
+    if (str in cache) {
+      return cache[str];
+    }
+    const result = fn(...args);
+    cache[str] = result;
+    return result;
   };
 }
 
